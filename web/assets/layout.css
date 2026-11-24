@@ -1,0 +1,124 @@
+/* Narrow-screen and form rules for this tool's own interface.
+
+   The shared kit dresses a calculator: a column of fields and one result. A
+   letter of credit has sixty fields and a presentation has a document for each
+   piece of paper, so this adds the grouping, the repeating rows and the finding
+   list the kit does not have. Nothing here restyles the kit. */
+
+/* Grid and flex children default to min-width:auto, which refuses to shrink
+   below their content. A card holding a wide table would otherwise stretch the
+   whole page sideways. */
+.cols > *, .row2 > * { min-width: 0; }
+
+/* Two fields side by side need the room for it. */
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+
+/* A table that will not fit scrolls inside its own card rather than widening
+   the page. */
+.table-scroll { overflow-x: auto; }
+
+/* Controls the kit's input rules do not reach. */
+input[type="date"], input[type="file"] { width: 100%; max-width: 100%; }
+textarea {
+  width: 100%; font: inherit; font-size: .95rem; padding: 11px 13px; border-radius: 9px;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--ink);
+  resize: vertical; min-height: 2.6em;
+}
+textarea:focus { outline: 2px solid var(--tool); outline-offset: 1px; border-color: var(--tool); }
+
+/* A second-level heading inside a card. */
+section.card h2.sub { margin-top: 24px; }
+
+/* The one-line banner the page reports a problem in. The kit's .note is a
+   warning; this makes a real failure read as one. */
+.note.bad { border-left-color: var(--bad); color: var(--ink); }
+
+/* Collapsible groups of fields, so sixty fields are readable on a phone. */
+.group { border-top: 1px solid var(--line); padding: 12px 0 2px; }
+.group:first-of-type { border-top: none; padding-top: 0; }
+.group > summary {
+  cursor: pointer; font-size: .9rem; font-weight: 700; color: var(--ink);
+  padding: 4px 0 10px; list-style: none;
+}
+.group > summary::-webkit-details-marker { display: none; }
+.group > summary::before { content: "▸ "; color: var(--ink-3); }
+.group[open] > summary::before { content: "▾ "; }
+.group > summary .hint { font-weight: 400; color: var(--ink-3); font-size: .78rem; }
+
+/* A checkbox reads as a sentence, not as a labelled box. */
+.field.check > label { display: flex; gap: 8px; align-items: baseline; font-weight: 400; color: var(--ink-2); }
+.field.check input[type="checkbox"] { margin: 0; flex: none; accent-color: var(--tool); }
+
+/* A field whose label wraps its own input — the shape the row templates use. */
+.rowcard .field > label { display: block; }
+
+/* One repeating row: a required document, or a document in the set. */
+.rowcard {
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 14px;
+  margin: 0 0 12px; background: var(--surface-2);
+}
+.rowcard-head { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+.rowcard-head select { flex: 1 1 auto; }
+.rowcard-head button { flex: none; margin-left: 0; }
+.rowcard fieldset {
+  border: 1px solid var(--line-2); border-radius: 8px; padding: 12px 14px 2px;
+  margin: 4px 0 0; background: var(--surface);
+}
+.rowcard fieldset legend { font-size: .8rem; font-weight: 700; color: var(--tool); padding: 0 6px; }
+
+/* Each kind of document shows only its own fieldset. */
+.rowcard .only-invoice, .rowcard .only-transport,
+.rowcard .only-insurance, .rowcard .only-draft { display: none; }
+.rowcard[data-kind="commercial-invoice"] .only-invoice,
+.rowcard[data-kind="transport"] .only-transport,
+.rowcard[data-kind="insurance"] .only-insurance,
+.rowcard[data-kind="draft"] .only-draft { display: block; }
+
+/* The findings. One block a finding, coloured by how much it matters. */
+.finding {
+  border: 1px solid var(--line); border-left: 3px solid var(--ink-3); border-radius: 8px;
+  padding: 12px 14px; margin: 10px 0; background: var(--surface);
+}
+.finding.discrepancy { border-left-color: var(--bad); }
+.finding.caution { border-left-color: var(--warn); }
+.finding.verify { border-left-color: var(--accent); }
+.finding.cleared { border-left-color: var(--ok); }
+.finding h3 { margin: 0 0 4px; font-size: .95rem; }
+.finding p { margin: 4px 0; font-size: .88rem; color: var(--ink-2); }
+.finding .meta { font-family: var(--mono); font-size: .74rem; color: var(--ink-3); }
+.finding .fix { color: var(--ink); }
+.finding .fix::before { content: "Do: "; font-weight: 700; }
+.finding .docs { font-size: .8rem; color: var(--ink-3); }
+
+/* A heading over a run of findings of one severity. */
+.severity-head {
+  margin: 20px 0 2px; font-size: .78rem; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; font-family: var(--mono);
+}
+.severity-head.discrepancy { color: var(--bad); }
+.severity-head.caution { color: var(--warn); }
+.severity-head.verify { color: var(--accent); }
+.severity-head.cleared { color: var(--ok); }
+
+/* The headline table reads as label and value, not as a grid of numbers. */
+#headline th { width: 42%; font-weight: 600; color: var(--ink-2); font-size: .82rem; }
+#headline td { font-size: .85rem; }
+
+/* The result column is tall; let it scroll inside itself on a wide screen
+   rather than running past the end of the form. */
+@media (min-width: 860px) {
+  .card.sticky { max-height: calc(100vh - 90px); overflow-y: auto; }
+}
+
+/* The catalogue of checks. */
+#catalogue td:first-child, #citations td:first-child { font-family: var(--mono); font-size: .78rem; white-space: nowrap; }
+#catalogue td, #citations td { vertical-align: top; font-size: .84rem; }
+#catalogue .cite, #citations .cite { font-family: var(--mono); font-size: .76rem; color: var(--tool); white-space: nowrap; }
+#citations .convention { color: var(--warn); }
+
+/* The saved-case list. */
+#cases-table td { vertical-align: top; font-size: .85rem; }
+#cases-table .actions { white-space: nowrap; text-align: right; }
+#cases-table .actions button { margin-left: 6px; }
+#cases-table .bad { color: var(--bad); font-weight: 700; }
+#cases-table .ok { color: var(--ok); font-weight: 700; }

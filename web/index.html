@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self'; connect-src 'self'">
+  <title>Letter of credit discrepancy pre-checker · Open MSME</title>
+  <meta name="description" content="Check your draft export documents against a letter of credit before you present them: dates, amounts, goods descriptions and cross-document consistency, against the rules of UCP 600.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/accent.css">
+  <link rel="stylesheet" href="assets/layout.css">
+  <script src="assets/theme-init.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <span class="brand"><span class="dot"></span><b>Open MSME</b><span class="tag">LC pre-check</span></span>
+      <span class="sp"></span>
+      <a class="home" href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a>
+      <button class="themer" data-themer type="button">Theme</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Exports &amp; trade compliance · India &amp; the Philippines</div>
+        <h1>Letter of credit discrepancy pre-checker for exporters</h1>
+        <p class="lede">Enter the credit's key terms and describe the documents you are about to present. This runs the classic UCP 600 discrepancy checks and lists what to fix while fixing it is still free.</p>
+        <div class="who">
+          <span class="pill">Exporters shipping under documentary credits</span>
+          <span class="pill reg">UCP 600 · ICC publication 600</span>
+          <span class="pill">Runs offline · one binary</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <nav class="seg" id="tabs" aria-label="Sections">
+        <button type="button" data-panel="check" aria-pressed="true">Check a presentation</button>
+        <button type="button" data-panel="cases" aria-pressed="false">Saved cases</button>
+        <button type="button" data-panel="checks" aria-pressed="false">What it checks</button>
+        <button type="button" data-panel="figures" aria-pressed="false">Figures applied</button>
+      </nav>
+
+      <div class="note" id="banner" hidden></div>
+
+      <!-- Check a presentation ---------------------------------------- -->
+      <div id="panel-check">
+        <div class="cols calc">
+          <div>
+            <section class="card">
+              <h2>The credit</h2>
+
+              <details class="group" open>
+                <summary>Reference and availability</summary>
+                <div class="field">
+                  <label for="c-reference">Credit number <span class="hint">field 20</span></label>
+                  <div class="inp"><input type="text" id="c-reference" autocomplete="off"></div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-issuing-bank">Issuing bank</label>
+                    <div class="inp"><input type="text" id="c-issuing-bank" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-available-with">Available with <span class="hint">field 41</span></label>
+                    <div class="inp"><input type="text" id="c-available-with" autocomplete="off"></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-availability">Available by</label>
+                    <select id="c-availability">
+                      <option value="">not stated</option>
+                      <option value="sight-payment">sight payment</option>
+                      <option value="deferred-payment">deferred payment</option>
+                      <option value="acceptance">acceptance</option>
+                      <option value="negotiation">negotiation</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="c-tenor-days">Tenor <span class="hint">days, if a term credit</span></label>
+                    <div class="inp"><input type="number" id="c-tenor-days" min="0" step="1"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="c-tenor-basis">Tenor counted from</label>
+                  <select id="c-tenor-basis">
+                    <option value="">not stated</option>
+                    <option value="shipment">the date of shipment (B/L date)</option>
+                    <option value="invoice">the invoice date</option>
+                    <option value="sight">sight</option>
+                    <option value="presentation">the date of presentation</option>
+                  </select>
+                </div>
+              </details>
+
+              <details class="group" open>
+                <summary>Amount</summary>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-currency">Currency <span class="hint">three letters</span></label>
+                    <div class="inp"><input type="text" id="c-currency" maxlength="3" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-amount">Credit amount</label>
+                    <div class="inp"><input type="number" id="c-amount" min="0" step="0.01"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="c-amount-qualifier">Worded as</label>
+                  <select id="c-amount-qualifier">
+                    <option value="exact">the amount exactly</option>
+                    <option value="about">about / approximately (art. 30(a))</option>
+                    <option value="maximum">maximum / not exceeding</option>
+                  </select>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-tol-plus">Tolerance up <span class="hint">% stated in the credit</span></label>
+                    <div class="inp has-suf"><input type="number" id="c-tol-plus" min="0" max="100" step="0.1"><span class="suf">%</span></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-tol-minus">Tolerance down <span class="hint">%</span></label>
+                    <div class="inp has-suf"><input type="number" id="c-tol-minus" min="0" max="100" step="0.1"><span class="suf">%</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="group">
+                <summary>Applicant and beneficiary</summary>
+                <div class="field">
+                  <label for="c-applicant-name">Applicant <span class="hint">field 50, exactly as the credit writes it</span></label>
+                  <div class="inp"><input type="text" id="c-applicant-name" autocomplete="off"></div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-applicant-address">Applicant's address</label>
+                    <div class="inp"><input type="text" id="c-applicant-address" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-applicant-country">Applicant's country</label>
+                    <div class="inp"><input type="text" id="c-applicant-country" autocomplete="off"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="c-beneficiary-name">Beneficiary <span class="hint">you, as the credit writes it</span></label>
+                  <div class="inp"><input type="text" id="c-beneficiary-name" autocomplete="off"></div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-beneficiary-address">Your address</label>
+                    <div class="inp"><input type="text" id="c-beneficiary-address" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-beneficiary-country">Your country</label>
+                    <div class="inp"><input type="text" id="c-beneficiary-country" autocomplete="off"></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="group" open>
+                <summary>Dates</summary>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-issue-date">Issued on</label>
+                    <div class="inp"><input type="date" id="c-issue-date"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-expiry-date">Expires on <span class="hint">field 31D</span></label>
+                    <div class="inp"><input type="date" id="c-expiry-date"></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-expiry-place">Expires at</label>
+                    <div class="inp"><input type="text" id="c-expiry-place" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-latest-shipment">Latest shipment <span class="hint">field 44C</span></label>
+                    <div class="inp"><input type="date" id="c-latest-shipment"></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-on-or-about">Shipment "on or about" <span class="hint">only if the credit says so</span></label>
+                    <div class="inp"><input type="date" id="c-on-or-about"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-presentation-days">Presentation period <span class="hint">days, if the credit states one</span></label>
+                    <div class="inp"><input type="number" id="c-presentation-days" min="0" step="1"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="c-closed-days">Days the bank of presentation is closed <span class="hint">one date a line, yyyy-mm-dd; weekends are already counted</span></label>
+                  <textarea id="c-closed-days" rows="2" spellcheck="false"></textarea>
+                </div>
+              </details>
+
+              <details class="group" open>
+                <summary>Goods</summary>
+                <div class="field">
+                  <label for="c-goods">Description of the goods <span class="hint">field 45A, word for word</span></label>
+                  <textarea id="c-goods" rows="3" spellcheck="false"></textarea>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-quantity">Quantity</label>
+                    <div class="inp"><input type="number" id="c-quantity" min="0" step="0.001"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-quantity-unit">Unit</label>
+                    <div class="inp"><input type="text" id="c-quantity-unit" autocomplete="off"></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-quantity-qualifier">Quantity worded as</label>
+                    <select id="c-quantity-qualifier">
+                      <option value="exact">the quantity exactly</option>
+                      <option value="about">about / approximately</option>
+                      <option value="maximum">maximum / not exceeding</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="c-unit-price">Unit price</label>
+                    <div class="inp"><input type="number" id="c-unit-price" min="0" step="0.0001"></div>
+                  </div>
+                </div>
+                <div class="field check">
+                  <label for="c-packing-units">
+                    <input type="checkbox" id="c-packing-units">
+                    The credit counts the goods in packing units or individual items
+                    <span class="hint">cartons, bags, pieces — article 30(b) then gives no 5% tolerance</span>
+                  </label>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-qty-tol-plus">Quantity tolerance up <span class="hint">%</span></label>
+                    <div class="inp has-suf"><input type="number" id="c-qty-tol-plus" min="0" max="100" step="0.1"><span class="suf">%</span></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-qty-tol-minus">Quantity tolerance down <span class="hint">%</span></label>
+                    <div class="inp has-suf"><input type="number" id="c-qty-tol-minus" min="0" max="100" step="0.1"><span class="suf">%</span></div>
+                  </div>
+                </div>
+              </details>
+
+              <details class="group" open>
+                <summary>Route, shipment and insurance</summary>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-trade-term">Term of delivery <span class="hint">FOB, CFR, CIF, CIP…</span></label>
+                    <div class="inp"><input type="text" id="c-trade-term" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-insurance-percent">Insurance required <span class="hint">% — blank means 110% of CIF/CIP</span></label>
+                    <div class="inp has-suf"><input type="number" id="c-insurance-percent" min="0" step="1"><span class="suf">%</span></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="c-insurance-risks">Risks the credit names</label>
+                  <div class="inp"><input type="text" id="c-insurance-risks" autocomplete="off"></div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-port-loading">Port of loading <span class="hint">field 44E</span></label>
+                    <div class="inp"><input type="text" id="c-port-loading" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-port-discharge">Port of discharge <span class="hint">field 44F</span></label>
+                    <div class="inp"><input type="text" id="c-port-discharge" autocomplete="off"></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-place-receipt">Place of taking in charge <span class="hint">multimodal only</span></label>
+                    <div class="inp"><input type="text" id="c-place-receipt" autocomplete="off"></div>
+                  </div>
+                  <div class="field">
+                    <label for="c-final-destination">Place of final destination</label>
+                    <div class="inp"><input type="text" id="c-final-destination" autocomplete="off"></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="c-partial">Partial shipments</label>
+                    <select id="c-partial">
+                      <option value="">not stated</option>
+                      <option value="allowed">allowed</option>
+                      <option value="prohibited">prohibited</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="c-transhipment">Transhipment</label>
+                    <select id="c-transhipment">
+                      <option value="">not stated</option>
+                      <option value="allowed">allowed</option>
+                      <option value="prohibited">prohibited</option>
+                    </select>
+                  </div>
+                </div>
+              </details>
+
+              <details class="group" open>
+                <summary>Documents the credit requires <span class="hint">field 46A</span></summary>
+                <div id="requirements"></div>
+                <div class="btnrow">
+                  <button class="btn ghost" type="button" id="add-requirement">Add a required document</button>
+                </div>
+                <div class="field">
+                  <label for="c-non-documentary">Conditions with no document named <span class="hint">one a line — article 14(h) disregards these</span></label>
+                  <textarea id="c-non-documentary" rows="2" spellcheck="false"></textarea>
+                </div>
+              </details>
+            </section>
+
+            <section class="card">
+              <h2>Your presentation</h2>
+              <div class="row2">
+                <div class="field">
+                  <label for="p-date">Presenting on</label>
+                  <div class="inp"><input type="date" id="p-date"></div>
+                </div>
+                <div class="field">
+                  <label for="p-place">Presenting to</label>
+                  <div class="inp"><input type="text" id="p-place" autocomplete="off"></div>
+                </div>
+              </div>
+              <div class="row2">
+                <div class="field">
+                  <label for="p-drawn-currency">Drawing currency</label>
+                  <div class="inp"><input type="text" id="p-drawn-currency" maxlength="3" autocomplete="off"></div>
+                </div>
+                <div class="field">
+                  <label for="p-drawn-amount">Amount being claimed</label>
+                  <div class="inp"><input type="number" id="p-drawn-amount" min="0" step="0.01"></div>
+                </div>
+              </div>
+
+              <h2 class="sub">Documents in the set</h2>
+              <div id="documents"></div>
+              <div class="btnrow">
+                <button class="btn ghost" type="button" id="add-document">Add a document</button>
+              </div>
+            </section>
+
+            <section class="card">
+              <h2>Save this case</h2>
+              <div class="field">
+                <label for="case-name">Name it <span class="hint">so you can check it again after fixing the documents</span></label>
+                <div class="inp"><input type="text" id="case-name" autocomplete="off"></div>
+              </div>
+              <div class="btnrow">
+                <button class="btn primary" type="button" id="save-case">Save</button>
+                <button class="btn ghost" type="button" id="load-sample">Load the worked example</button>
+                <button class="btn ghost" type="button" id="clear-form">Start again</button>
+              </div>
+              <p class="note">Everything you type stays in one file on this machine. Nothing is sent anywhere.</p>
+            </section>
+          </div>
+
+          <div>
+            <section class="card sticky" id="result">
+              <h2>What the check says</h2>
+              <div class="result-primary">
+                <div class="k">Verdict</div>
+                <div class="v" id="verdict-count">—</div>
+                <div class="sub" id="verdict-text">Enter the credit's terms and your documents.</div>
+              </div>
+              <table class="breakdown" id="headline"></table>
+              <div class="btnrow">
+                <button class="btn primary" type="button" id="run-check">Check now</button>
+                <button class="btn ghost" type="button" id="download-report">Download the report</button>
+              </div>
+              <div id="findings"></div>
+              <details class="assumptions" id="gaps-wrap">
+                <summary>What could not be checked</summary>
+                <ul id="gaps"></ul>
+              </details>
+              <div class="note">This is a self-check made before presentation, from what you typed in. It is not a bank's examination and it is not advice. Whether a presentation complies is determined by the issuing bank on the documents themselves — UCP 600 articles 14(a), 15 and 16.</div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saved cases ------------------------------------------------- -->
+      <div id="panel-cases" hidden>
+        <section class="card">
+          <h2>Saved cases</h2>
+          <p class="note" id="cases-empty">Nothing saved yet. Fill in a credit on the first tab and save it.</p>
+          <div class="table-scroll">
+            <table class="breakdown" id="cases-table"></table>
+          </div>
+          <p class="assumptions" id="data-file"></p>
+        </section>
+      </div>
+
+      <!-- What it checks ---------------------------------------------- -->
+      <div id="panel-checks" hidden>
+        <section class="card">
+          <h2>Every check this tool runs</h2>
+          <p>Each one names the sub-article of UCP 600 it rests on. Where a check clears something rather than finding fault, that matters just as much: it stops a document being reprinted for nothing.</p>
+          <div class="table-scroll">
+            <table class="breakdown" id="catalogue"></table>
+          </div>
+        </section>
+        <section class="card">
+          <h2>What it does not do</h2>
+          <ul>
+            <li><strong>It is not an examination.</strong> A bank examines the documents themselves, on their face. This reads a description of them that you typed in.</li>
+            <li><strong>It cannot see a signature, a stamp or an original.</strong> Articles 17(b) and 17(c) decide originality on the face of the paper.</li>
+            <li><strong>It does not read your documents.</strong> There is no scanning and no optical character recognition; every field is entered by hand.</li>
+            <li><strong>It does not cover a transferred credit</strong> (article 38), <strong>instalment shipments</strong> (article 32), <strong>standby credits</strong>, <strong>bank-to-bank reimbursement</strong> (article 13) or <strong>assignment of proceeds</strong> (article 39).</li>
+            <li><strong>It applies no local law.</strong> UCP 600 applies because the credit says it does (article 1); the law of the place of presentation sits above it.</li>
+            <li><strong>It is not advice.</strong> Confirm every article and figure against the current text of UCP 600, and take a banker's or a lawyer's view before you act on anything that matters.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- Figures applied --------------------------------------------- -->
+      <div id="panel-figures" hidden>
+        <section class="card">
+          <h2>The figures these checks apply</h2>
+          <p>Every figure the tool uses is defined in one place in the source, with the sub-article it comes from. Several of them a credit may vary, and the rules themselves are revised from time to time — so each is editable here. Changing one is recorded in the report, so a report always says which figures produced it.</p>
+          <div class="table-scroll">
+            <table class="breakdown" id="citations"></table>
+          </div>
+
+          <h2 class="sub">Change a figure</h2>
+          <div class="row2">
+            <div class="field">
+              <label for="t-presentation-days">Presentation period after shipment <span class="hint">calendar days, art. 14(c)</span></label>
+              <div class="inp"><input type="number" id="t-presentation-days" min="1" step="1"></div>
+            </div>
+            <div class="field">
+              <label for="t-examination-days">Examination period <span class="hint">banking days, arts. 14(b), 16(d)</span></label>
+              <div class="inp"><input type="number" id="t-examination-days" min="1" step="1"></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="t-on-or-about">"On or about" window <span class="hint">days either side, art. 3</span></label>
+              <div class="inp"><input type="number" id="t-on-or-about" min="1" step="1"></div>
+            </div>
+            <div class="field">
+              <label for="t-about-tolerance">"About" tolerance <span class="hint">%, art. 30(a)</span></label>
+              <div class="inp has-suf"><input type="number" id="t-about-tolerance" min="0" step="0.1"><span class="suf">%</span></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="t-quantity-tolerance">Quantity tolerance <span class="hint">%, art. 30(b)</span></label>
+              <div class="inp has-suf"><input type="number" id="t-quantity-tolerance" min="0" step="0.1"><span class="suf">%</span></div>
+            </div>
+            <div class="field">
+              <label for="t-short-draw">Short-drawing tolerance <span class="hint">% down only, art. 30(c)</span></label>
+              <div class="inp has-suf"><input type="number" id="t-short-draw" min="0" step="0.1"><span class="suf">%</span></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="t-insurance">Minimum insurance <span class="hint">% of CIF/CIP, art. 28(f)(ii)</span></label>
+              <div class="inp has-suf"><input type="number" id="t-insurance" min="0" step="1"><span class="suf">%</span></div>
+            </div>
+            <div class="field">
+              <label for="t-originals">Originals of each document <span class="hint">art. 17(a)</span></label>
+              <div class="inp"><input type="number" id="t-originals" min="1" step="1"></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="t-typo">Typing-error allowance <span class="hint">character edits — a convention, not UCP 600</span></label>
+              <div class="inp"><input type="number" id="t-typo" min="0" max="6" step="1"></div>
+            </div>
+            <div class="field">
+              <label for="t-decimals">Decimal places on amounts <span class="hint">0 for JPY, KRW, VND</span></label>
+              <div class="inp"><input type="number" id="t-decimals" min="0" max="6" step="1"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="t-weekend">Days the bank is closed every week <span class="hint">weekday numbers, Sunday = 0; UCP 600 fixes no weekend</span></label>
+            <div class="inp"><input type="text" id="t-weekend" autocomplete="off"></div>
+          </div>
+          <div class="btnrow">
+            <button class="btn primary" type="button" id="save-figures">Save the figures</button>
+            <button class="btn ghost" type="button" id="reset-figures">Back to the UCP 600 figures</button>
+          </div>
+          <div class="note">Confirm every figure against the current text of UCP 600 (ICC publication 600) before you rely on it. Where this tool uses a convention of its own rather than a rule — the typing-error allowance, the rounding, the weekend — the table above says so in terms.</div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>Open MSME · open-source tool for MSMEs in India &amp; the Philippines · MIT</span>
+      <span><a href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a></span>
+    </div>
+  </footer>
+
+  <!-- One required-document row ------------------------------------- -->
+  <template id="requirement-template">
+    <div class="rowcard" data-requirement>
+      <div class="rowcard-head">
+        <select data-field="kind" aria-label="Kind of document">
+          <option value="commercial-invoice">commercial invoice</option>
+          <option value="transport">transport document</option>
+          <option value="insurance">insurance document</option>
+          <option value="draft">draft (bill of exchange)</option>
+          <option value="packing-list">packing list</option>
+          <option value="certificate-of-origin">certificate of origin</option>
+          <option value="inspection-certificate">inspection certificate</option>
+          <option value="weight-certificate">weight certificate</option>
+          <option value="beneficiary-certificate">beneficiary's certificate</option>
+          <option value="other">other document</option>
+        </select>
+        <button class="themer" type="button" data-remove aria-label="Remove this requirement">Remove</button>
+      </div>
+      <div class="field">
+        <label>The credit's own wording <span class="hint">copy it as written — "signed", "full set", "independent" all change the test</span>
+          <div class="inp"><input type="text" data-field="wording" autocomplete="off"></div>
+        </label>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Originals
+            <div class="inp"><input type="number" data-field="originals" min="0" step="1" value="1"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Copies
+            <div class="inp"><input type="number" data-field="copies" min="0" step="1" value="0"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- One presented-document row ------------------------------------ -->
+  <template id="document-template">
+    <div class="rowcard" data-document data-kind="commercial-invoice">
+      <div class="rowcard-head">
+        <select data-field="kind" aria-label="Kind of document">
+          <option value="commercial-invoice">commercial invoice</option>
+          <option value="transport">transport document</option>
+          <option value="insurance">insurance document</option>
+          <option value="draft">draft (bill of exchange)</option>
+          <option value="packing-list">packing list</option>
+          <option value="certificate-of-origin">certificate of origin</option>
+          <option value="inspection-certificate">inspection certificate</option>
+          <option value="weight-certificate">weight certificate</option>
+          <option value="beneficiary-certificate">beneficiary's certificate</option>
+          <option value="other">other document</option>
+        </select>
+        <button class="themer" type="button" data-remove aria-label="Remove this document">Remove</button>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Its own heading or number
+            <div class="inp"><input type="text" data-field="title" autocomplete="off"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Dated
+            <div class="inp"><input type="date" data-field="date"></div>
+          </label>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Issued by
+            <div class="inp"><input type="text" data-field="issuer" autocomplete="off"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Originals / copies in the set
+            <div class="row2">
+              <div class="inp"><input type="number" data-field="originals" min="0" step="1" value="1" aria-label="Originals"></div>
+              <div class="inp"><input type="number" data-field="copies" min="0" step="1" value="0" aria-label="Copies"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Description of the goods as it appears on this document <span class="hint">leave blank where the document carries none</span>
+          <textarea data-field="goodsDescription" rows="2" spellcheck="false"></textarea>
+        </label>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Invoice number it quotes
+            <div class="inp"><input type="text" data-field="invoiceNumberShown" autocomplete="off"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Credit number it quotes
+            <div class="inp"><input type="text" data-field="lcReferenceShown" autocomplete="off"></div>
+          </label>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Quantity shown
+            <div class="inp"><input type="number" data-field="quantity" min="0" step="0.001"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Unit
+            <div class="inp"><input type="text" data-field="quantityUnit" autocomplete="off"></div>
+          </label>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Packages shown
+            <div class="inp"><input type="number" data-field="packages" min="0" step="1"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Gross weight shown <span class="hint">kg</span>
+            <div class="inp"><input type="number" data-field="grossWeightKg" min="0" step="0.001"></div>
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Shipping marks shown
+          <div class="inp"><input type="text" data-field="shippingMarks" autocomplete="off"></div>
+        </label>
+      </div>
+      <div class="field check">
+        <label><input type="checkbox" data-field="signed"> It is signed</label>
+      </div>
+      <div class="field check">
+        <label><input type="checkbox" data-field="issuedByBeneficiary"> You issued it yourself</label>
+      </div>
+
+      <fieldset class="only-invoice">
+        <legend>Commercial invoice</legend>
+        <div class="row2">
+          <div class="field">
+            <label>Currency
+              <div class="inp"><input type="text" data-field="invoice.currency" maxlength="3" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Invoice total
+              <div class="inp"><input type="number" data-field="invoice.amount" min="0" step="0.01"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Unit price shown
+              <div class="inp"><input type="number" data-field="invoice.unitPrice" min="0" step="0.0001"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Term of delivery shown
+              <div class="inp"><input type="text" data-field="invoice.tradeTerm" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Made out to <span class="hint">must be the applicant — article 18(a)(ii)</span>
+            <div class="inp"><input type="text" data-field="invoice.madeOutTo.name" autocomplete="off"></div>
+          </label>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Its address
+              <div class="inp"><input type="text" data-field="invoice.madeOutTo.address" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Its country
+              <div class="inp"><input type="text" data-field="invoice.madeOutTo.country" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="only-transport">
+        <legend>Transport document</legend>
+        <div class="field">
+          <label>Which kind <span class="hint">this decides the article, the date of shipment and whether a transhipment prohibition bites</span>
+            <select data-field="transport.mode">
+              <option value="">not stated</option>
+              <option value="bill-of-lading">bill of lading (art. 20)</option>
+              <option value="sea-waybill">non-negotiable sea waybill (art. 21)</option>
+              <option value="charter-party-bill-of-lading">charter party bill of lading (art. 22)</option>
+              <option value="multimodal">multimodal, two or more modes (art. 19)</option>
+              <option value="air">air transport document (art. 23)</option>
+              <option value="road-rail-inland-waterway">road, rail or inland waterway (art. 24)</option>
+              <option value="courier-or-post">courier or post receipt (art. 25)</option>
+              <option value="other">outside articles 19 to 25</option>
+            </select>
+          </label>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>On board notation dated <span class="hint">leave blank if there is none</span>
+              <div class="inp"><input type="date" data-field="transport.onBoardDate"></div>
+            </label>
+          </div>
+          <div class="field check">
+            <label><input type="checkbox" data-field="transport.preprintedOnBoard"> Printed "shipped on board" wording</label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Carrier
+              <div class="inp"><input type="text" data-field="transport.carrier" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Signed by
+              <div class="inp"><input type="text" data-field="transport.signedBy" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Vessel
+              <div class="inp"><input type="text" data-field="transport.vessel" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Voyage
+              <div class="inp"><input type="text" data-field="transport.voyage" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Port of loading
+              <div class="inp"><input type="text" data-field="transport.portOfLoading" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Port of discharge
+              <div class="inp"><input type="text" data-field="transport.portOfDischarge" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Place of taking in charge
+              <div class="inp"><input type="text" data-field="transport.placeOfReceipt" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Place of final destination
+              <div class="inp"><input type="text" data-field="transport.finalDestination" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Shipper shown <span class="hint">need not be you — article 14(k)</span>
+            <div class="inp"><input type="text" data-field="transport.shipper" autocomplete="off"></div>
+          </label>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Consignee shown
+              <div class="inp"><input type="text" data-field="transport.consignee" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Notify party shown
+              <div class="inp"><input type="text" data-field="transport.notifyParty" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Originals it says were issued
+              <div class="inp"><input type="number" data-field="transport.originalsIssued" min="0" step="1"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Transhipment shown
+              <select data-field="transport.transhipment">
+                <option value="">nothing said</option>
+                <option value="may">it may take place</option>
+                <option value="will">it will take place</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="field check">
+          <label><input type="checkbox" data-field="transport.containerised"> Shipped in a container, trailer or LASH barge, as the document shows</label>
+        </div>
+        <div class="field check">
+          <label><input type="checkbox" data-field="transport.onDeck"> It says the goods are or will be on deck</label>
+        </div>
+        <div class="field check">
+          <label><input type="checkbox" data-field="transport.mayBeOnDeck"> It only says they may be carried on deck</label>
+        </div>
+        <div class="field check">
+          <label><input type="checkbox" data-field="transport.subjectToCharterParty"> It says it is subject to a charter party</label>
+        </div>
+        <div class="field">
+          <label>Any clause declaring the goods or packing defective <span class="hint">copy it — article 27 accepts only a clean document</span>
+            <div class="inp"><input type="text" data-field="transport.adverseClause" autocomplete="off"></div>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="only-insurance">
+        <legend>Insurance document</legend>
+        <div class="row2">
+          <div class="field">
+            <label>Currency
+              <div class="inp"><input type="text" data-field="insurance.currency" maxlength="3" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Sum insured
+              <div class="inp"><input type="number" data-field="insurance.amount" min="0" step="0.01"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Issued by <span class="hint">an insurer, underwriter, agent or proxy — article 28(a)</span>
+              <div class="inp"><input type="text" data-field="insurance.issuedBy" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Originals it says were issued
+              <div class="inp"><input type="number" data-field="insurance.originalsIssued" min="0" step="1"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Cover effective from <span class="hint">only if the document says so</span>
+              <div class="inp"><input type="date" data-field="insurance.coverEffectiveFrom"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Risks it covers
+              <div class="inp"><input type="text" data-field="insurance.risks" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+        <div class="field check">
+          <label><input type="checkbox" data-field="insurance.isCoverNote"> It is a broker's cover note</label>
+        </div>
+        <div class="field check">
+          <label><input type="checkbox" data-field="insurance.endorsed"> It is endorsed</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="only-draft">
+        <legend>Draft</legend>
+        <div class="row2">
+          <div class="field">
+            <label>Currency
+              <div class="inp"><input type="text" data-field="draft.currency" maxlength="3" autocomplete="off"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Amount
+              <div class="inp"><input type="number" data-field="draft.amount" min="0" step="0.01"></div>
+            </label>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Tenor <span class="hint">days</span>
+              <div class="inp"><input type="number" data-field="draft.tenorDays" min="0" step="1"></div>
+            </label>
+          </div>
+          <div class="field">
+            <label>Drawn on
+              <div class="inp"><input type="text" data-field="draft.drawnOn" autocomplete="off"></div>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </template>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

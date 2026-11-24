@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self'">
+  <title>Letter of credit discrepancy pre-checker (UCP 600) · Open MSME</title>
+  <meta name="description" content="A free single-binary tool for exporters in India and the Philippines: check your draft documents against a letter of credit before you present them. Runs the classic UCP 600 discrepancy checks on dates, amounts, goods descriptions and cross-document consistency, and lists exactly what to fix.">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="Letter of credit discrepancy pre-checker (UCP 600) · Open MSME">
+  <meta property="og:description" content="Catch the UCP 600 discrepancies in your export documents while they are still free to fix — one offline binary, your data stays on your machine.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/accent.css">
+  <script src="assets/theme-init.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">
+        <span class="dot"></span><b>Open MSME</b><span class="tag">LC pre-check</span>
+      </a>
+      <span class="sp"></span>
+      <a class="home" href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a>
+      <button class="themer" data-themer type="button">Theme</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Exports &amp; trade compliance · India &amp; the Philippines</div>
+        <h1>Letter of credit discrepancy pre-checker for exporters</h1>
+        <p class="lede">Banks refuse export documents over small things: a model number that changed, an insurance certificate short of 110%, a bill of lading dated two days after the latest shipment date. Enter the credit's terms and describe the documents you are about to present, and this lists what to fix — before the set leaves your office, while fixing it is still free.</p>
+        <div class="who">
+          <span class="pill">Exporters shipping under documentary credits</span>
+          <span class="pill reg">UCP 600 · ICC publication 600, 2007 revision</span>
+          <span class="pill">Runs offline · one binary</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <section class="prose">
+        <h2>What it does</h2>
+        <p>A discrepancy fee is a few hundred dollars. A discrepancy that is found after presentation is worse than that: the payment stops, the documents sit at the issuing bank waiting for a waiver the buyer has no reason to hurry over, and the goods arrive at a port where nobody can collect them. Nearly all of it is avoidable, because nearly all of it is mechanical.</p>
+        <p>This tool runs <strong>38 checks</strong> over what you type in:</p>
+        <ul>
+          <li><strong>Deadlines.</strong> Whether you are inside the expiry date, whether the goods shipped inside the latest shipment date, and whether the documents are going in within the 21 calendar days of article 14(c) — counting the date of shipment the way the transport articles define it, which is not always the date on the document.</li>
+          <li><strong>Amounts and quantities.</strong> Whether the drawing is inside the credit, whether the quantity is inside the tolerance that actually applies, and whether the sum insured meets the percentage required.</li>
+          <li><strong>Descriptions and names.</strong> Whether the invoice describes the goods as the credit does, whether it is issued by you and made out to the applicant, and whether a difference is a typing error or a change of data.</li>
+          <li><strong>The documents themselves.</strong> Whether anything the credit asks for is missing, whether you hold an original of each, and whether the insurance is a policy rather than a broker's cover note.</li>
+          <li><strong>The transport document.</strong> Whether it is clean, on board, at the credit's ports, in a full set, and not a charter party bill when the credit never asked for one.</li>
+          <li><strong>Cross-document consistency.</strong> Whether the invoice number, package count, gross weight and shipping marks that the documents repeat from one another agree — the test in article 14(d), which is where most refusals actually come from.</li>
+        </ul>
+        <p>And it tells you what is <strong>not</strong> a discrepancy, which matters just as much. Fifteen of the 38 checks exist to clear something that looks wrong and is not: a packing list that describes the goods in general terms, a different branch address on the invoice, a shipper who is not you, a transhipment on a container shipment under a credit that forbids transhipment. Every one of those is expressly permitted by a sub-article of UCP 600, and every one of them gets documents reprinted for nothing every week.</p>
+
+        <h2>Who it's for</h2>
+        <p>Small and medium exporters in India and the Philippines who ship under letters of credit and have no in-house trade-finance desk: garment and textile units, engineering and machining shops, food processors, furniture and handicraft exporters, anybody whose credit arrives by SWIFT and whose documents are typed by the person who also does the packing list.</p>
+        <p>You need no accounting system and no internet connection. If your present process is to send the documents to your banker and hope, this is the step before that.</p>
+
+        <h2>The rule it implements</h2>
+        <p><strong>UCP 600</strong> — the Uniform Customs and Practice for Documentary Credits, 2007 revision, International Chamber of Commerce publication 600 — is the body of rules most commercial letters of credit are issued under. It applies because the credit says it does: <strong>article 1</strong> binds all parties to the rules when the credit expressly indicates it is subject to them.</p>
+        <p>The checks rest on these sub-articles, each cited in the tool itself beside the finding it produced:</p>
+        <ul>
+          <li><strong>Article 14</strong> — the standard for examination. 14(a) examination on the documents alone; <strong>14(b)</strong> five banking days; <strong>14(c)</strong> presentation no later than 21 calendar days after the date of shipment, and never after expiry; <strong>14(d)</strong> data that need not be identical but must not conflict; <strong>14(e)</strong> general terms outside the invoice; <strong>14(g)</strong> documents nobody asked for; <strong>14(h)</strong> conditions with no document behind them; <strong>14(i)</strong> a document dated before the credit but not after presentation; <strong>14(j)</strong> addresses; <strong>14(k)</strong> the shipper.</li>
+          <li><strong>Article 3</strong> — interpretations: "on or about" as five days either side; "to", "until", "till", "from" and "between" as including the date mentioned; "from" and "after" as excluding it for a maturity date; and the words that describe an issuer — "first class", "independent", "official" and the rest — as allowing any issuer except the beneficiary.</li>
+          <li><strong>Articles 6 and 29</strong> — expiry and place of presentation, and the extension of the last day for presentation when the bank is closed on it. <strong>Article 29(c)</strong>, which does <em>not</em> extend the latest shipment date with it.</li>
+          <li><strong>Articles 16 and 17</strong> — refusal and its notice, and what counts as an original.</li>
+          <li><strong>Article 18</strong> — the commercial invoice: issued by the beneficiary, made out to the applicant, in the credit's currency, need not be signed, description corresponding with the credit.</li>
+          <li><strong>Articles 19 to 27</strong> — the transport documents, each with its own rules on the date of shipment, transhipment and the full set; <strong>article 26(a)</strong> on deck; <strong>article 27</strong> clean.</li>
+          <li><strong>Article 28</strong> — insurance: who may issue it, cover notes refused, dated no later than shipment, in the credit's currency, at least 110% of the CIF or CIP value.</li>
+          <li><strong>Articles 30 to 32</strong> — tolerances on the amount, the quantity and the unit price, partial drawings and shipments, and instalments.</li>
+        </ul>
+        <p>The figures those articles fix — 21 days, 5 banking days, 5 days either side, 10%, 5%, 110%, one original — are defined as <strong>named constants in one place</strong> in the source, are listed in the tool with the sub-article each comes from, and are <strong>editable</strong>, because several of them a credit may vary and the rules themselves are revised from time to time. Confirm them against the current text of UCP 600 before you rely on them.</p>
+
+        <h2>Install &amp; run</h2>
+        <p>One binary, the Go standard library and nothing else — no database to install, no packages to fetch, no build step for the interface.</p>
+<pre># build it
+git clone https://github.com/sreenivas-sadhu-prabhakara/lc-discrepancy-pre-checker-ucp.git
+cd lc-discrepancy-pre-checker-ucp
+go build -o lc-discrepancy-pre-checker-ucp .
+
+# run it, then open http://127.0.0.1:8080 in a browser
+./lc-discrepancy-pre-checker-ucp
+
+# or run it straight from the source
+go run .
+
+# another port, and your cases somewhere of your choosing
+./lc-discrepancy-pre-checker-ucp -addr 127.0.0.1:9000 -data ~/exports/lc-cases.json</pre>
+        <p>It serves the interface on <code>127.0.0.1</code> — the machine it is running on, not the network — and keeps your cases in <code>./lc-discrepancy-pre-checker-ucp-data.json</code> unless you point <code>-data</code> somewhere else. Stop it with Ctrl-C. There is a worked example built in: open the tool and press <strong>Load the worked example</strong> to see what a report looks like before typing anything of your own.</p>
+
+        <h2>How it goes in practice</h2>
+        <ol class="steps">
+          <li>Copy the credit's key fields in once: number, amount, dates, goods description, ports, the list of documents required. Save it under a name.</li>
+          <li>As each document comes in — invoice, bill of lading, insurance certificate, certificate of origin — describe it: its date, its issuer, how many originals you hold, what it says about the goods.</li>
+          <li>Press <strong>Check now</strong>. Work down the discrepancies, fix the documents, and check again. The report says what to do about each one, not just what is wrong.</li>
+          <li>Read the cleared list too. It will usually tell you one or two things you were about to have reprinted for no reason.</li>
+          <li>Download the report, keep it with the file, and send it to your banker if you want a second opinion before presenting.</li>
+        </ol>
+
+        <h2>What it stores</h2>
+        <p>One JSON file on your own machine — your credits, your documents and the figures in force. Nothing else, nowhere else:</p>
+        <ul>
+          <li><strong>No outbound network calls.</strong> Not for fonts, not for analytics, not for updates. The interface is built into the binary and served from it.</li>
+          <li><strong>No bank integration.</strong> This prepares nothing and files nothing. It has no connection to any bank, to SWIFT or to a trade portal.</li>
+          <li><strong>No reading of your documents.</strong> There is no scanning and no optical character recognition; every field is entered by hand, which is also why the tool can only be as right as what you type.</li>
+          <li><strong>Written whole, atomically.</strong> Every change writes a temporary file beside the data file and renames it over the old one, so an interrupted save leaves the previous file intact, never half of one. The file is written readable only by you.</li>
+          <li><strong>Yours to read.</strong> It is plain, indented JSON. Your customer's name, your prices and your bank's name never leave the machine.</li>
+        </ul>
+
+        <h2>Features</h2>
+        <div class="featgrid">
+          <div class="feat">
+            <h3>38 checks, each one cited</h3>
+            <p>Every finding names the sub-article of UCP 600 it rests on, so you can look it up, quote it to a buyer, or disagree with it on the merits.</p>
+          </div>
+          <div class="feat">
+            <h3>The date of shipment, properly</h3>
+            <p>A bill of lading's on board notation beats its date of issuance; an air waybill's date of issuance beats the flight date unless there is a notation of actual shipment; several sets take the latest. Three sub-articles, and the tool says which one it used.</p>
+          </div>
+          <div class="feat">
+            <h3>Article 29, both halves</h3>
+            <p>If the bank is closed on the expiry date, the last day for presentation moves to the next banking day. The latest shipment date does not move with it. The tool applies both, and says so where it matters.</p>
+          </div>
+          <div class="feat">
+            <h3>Typing error or conflict</h3>
+            <p>"Mashine" for "machine" is a slip that standard practice forgives. "Model 4400" where the credit says "model 4200" is a discrepancy. The tool draws that line and never treats a changed figure as a slip.</p>
+          </div>
+          <div class="feat">
+            <h3>Tolerances as written</h3>
+            <p>The 5% of article 30(b) is quantity only, and gone the moment the credit counts the goods in cartons. The 5% of article 30(c) runs downward only, on three conditions. Both are applied as the sub-articles read, not as they are remembered.</p>
+          </div>
+          <div class="feat">
+            <h3>Insurance, with the fallback</h3>
+            <p>110% of the CIF or CIP value where the credit is silent — and where the term is FOB and no CIF value can be worked out from the documents, the greater of the drawing and the gross invoice value, as article 28(f)(ii) directs.</p>
+          </div>
+          <div class="feat">
+            <h3>When a prohibition does nothing</h3>
+            <p>A credit forbidding transhipment has no effect on an air waybill, a road or rail document, a multimodal document, or a container shipment under a bill of lading. The tool clears those instead of alarming you.</p>
+          </div>
+          <div class="feat">
+            <h3>A written report</h3>
+            <p>Plain text, with the verdict, every finding, what to do about it, what could not be checked, and the figures applied. Download it, keep it with the file, send it to your banker.</p>
+          </div>
+        </div>
+
+        <h2>Assumptions</h2>
+        <details class="assumptions" open>
+          <summary>The figures it applies, and what it leaves to you</summary>
+          <p><strong>Presentation period: 21 calendar days</strong> after the date of shipment, and in no event after the expiry date — <em>article 14(c)</em>. It is applied only where the presentation includes an original transport document subject to articles 19 to 25, which is what that sub-article says; a forwarder's certificate of receipt does not bring it into play. A period the credit states for itself displaces it, and is enterable per credit.</p>
+          <p><strong>Examination period: 5 banking days</strong> following the day of presentation, and notice of refusal no later than the close of the fifth — <em>articles 14(b) and 16(d)</em>. Used to tell you the day by which an answer must have reached you. A bank that misses it is precluded from claiming the documents do not comply — <em>article 16(f)</em>.</p>
+          <p><strong>"On or about": 5 calendar days</strong> before until 5 after, both days included — <em>article 3</em>.</p>
+          <p><strong>"About" or "approximately": 10%</strong> more or less of the amount, the quantity or the unit price it refers to — <em>article 30(a)</em>.</p>
+          <p><strong>Quantity tolerance: 5%</strong> more or less — <em>article 30(b)</em> — but <em>not</em> where the credit states the quantity as a number of packing units or individual items, and <em>not</em> if the drawings would exceed the credit amount. Both conditions are applied.</p>
+          <p><strong>Short-drawing tolerance: 5% less only</strong> — <em>article 30(c)</em> — available where partial shipments are forbidden, on condition that the full quantity is shipped, the unit price is not reduced, and article 30(b) does not apply. There is no matching tolerance upward, and the tool will not invent one.</p>
+          <p><strong>Minimum insurance: 110%</strong> of the CIF or CIP value where the credit gives no figure — <em>article 28(f)(ii)</em>. A percentage the credit does state is treated as a minimum, not a target.</p>
+          <p><strong>Originals: at least one</strong> of each document the credit stipulates — <em>article 17(a)</em>. A credit counting in copies ("in duplicate", "in triplicate") is satisfied by one original and the rest in copies — <em>article 17(e)</em> — but a credit demanding originals ("full set 3/3 original") is not, and the tool reads the credit's own wording to tell the two apart.</p>
+          <p><strong>Three things are conventions of this tool, not rules.</strong> They are labelled as such everywhere they appear. First, the <strong>typing-error allowance</strong>: two single-character edits, with a figure or a code never excused. It stands in for the ICC's standard banking practice that a misspelling which does not affect meaning is no discrepancy — stated in <strong>ISBP 745</strong>, the ICC's International Standard Banking Practice companion to UCP 600, in its general principles on misspellings and typing errors. <em>No paragraph number of ISBP 745 is cited here, because this build has not verified one, and an invented citation would be worse than none.</em> Second, <strong>two decimal places</strong> when comparing amounts; set it to zero for a credit in a currency with no minor unit. Third, <strong>Saturday and Sunday</strong> as the weekend when counting banking days — UCP 600 fixes no weekend, and in several markets it is not those two days.</p>
+          <p><strong>Endorsements.</strong> Where a credit asks for an insurance document "blank endorsed", the tool flags an unendorsed one — but says plainly that UCP 600 contains no article requiring an endorsement. That requirement comes from the credit's own wording and from standard banking practice, not from the text of the rules.</p>
+          <p><strong>Dates typed with slashes</strong> are read day first: 03/10/2026 is 3 October. Enter dates as <code>2026-03-10</code> and there is nothing to misread.</p>
+          <p><strong>Countries.</strong> Article 14(j) requires only that an address be in the same country as the credit's. The tool recognises the several ways India and the Philippines are written; for any other pair of country names that differ it reports something to confirm rather than a discrepancy, which is the safe direction to be wrong in.</p>
+        </details>
+
+        <h2>What it does not do</h2>
+        <p>This matters more than the feature list, so it is set out plainly rather than buried.</p>
+        <ul>
+          <li><strong>It is a pre-submission self-check, not an examination.</strong> A bank examines the documents themselves, on their face, and determines whether the presentation complies — <em>articles 14(a) and 15</em>. <strong>Only the issuing bank's determination decides whether you are paid.</strong> This tool reads a description of your documents that you typed in. A clean result here is not a complying presentation and the tool never says it is: its best verdict is "nothing found that would stop the presentation — the issuing bank still decides".</li>
+          <li><strong>It cannot see a signature, a stamp or an original.</strong> Whether a sheet is an original is decided on the face of the paper — <em>articles 17(b) and 17(c)</em> — and no form can reproduce that. The tool says so rather than pretending otherwise.</li>
+          <li><strong>It does not read your documents.</strong> No scanning, no optical character recognition, no upload. It is only as right as what you enter, and a field you leave blank is a check it reports as not run rather than silently passing.</li>
+          <li><strong>It does not cover</strong> transferable credits (<em>article 38</em>), instalment drawings and shipments (<em>article 32</em>), bank-to-bank reimbursement (<em>article 13</em>), assignment of proceeds (<em>article 39</em>), standby letters of credit, demand guarantees, or credits issued under eUCP for electronic records.</li>
+          <li><strong>It applies no national law.</strong> UCP 600 applies because the credit says it does; the law of the place of presentation sits above it, and a court will not be bound by a rule of practice.</li>
+          <li><strong>It is not advice.</strong> It is a checklist with citations. Confirm every article and figure against the current text of UCP 600, and take a banker's or a lawyer's view on anything that carries real money.</li>
+        </ul>
+
+        <div class="note">A clean result from this tool is not a promise of payment, and a discrepancy it reports is not a bank's refusal. Both are opinions formed from what was typed in. The issuing bank's determination on the documents themselves is what counts — UCP 600 articles 14(a), 15 and 16. Where a figure or an article here differs from the rules in force, the rules govern and this tool is wrong; confirm them with the current text of UCP 600 or with your bank before you present.</div>
+
+        <h2>Licence</h2>
+        <p>MIT licensed, free forever, and open to read line by line — including the rules it applies, which live in one small package with table-driven tests covering every check, every boundary and the malformed input nobody expects.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>Open MSME · open-source tool for MSMEs in India &amp; the Philippines · MIT</span>
+      <span><a href="https://sreenivas-sadhu-prabhakara.github.io/openmsme/">All tools</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/ui.js"></script>
+</body>
+</html>
